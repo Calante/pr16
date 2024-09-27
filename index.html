@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Intersection Observer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="block block1">Блок 1</div>
+    <div class="block block2">Блок 2</div>
+    <div class="block block3">Блок 3</div>
+    <div class="block block4">Блок 4</div>
+
+    <div id="phoneModal">
+        <p>Телефон: +79625628457</p>
+        <button id="closeModal">Закрыть</button>
+    </div>
+
+    <script>
+        const phoneModal = document.getElementById('phoneModal');
+        const closeModal = document.getElementById('closeModal');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // Проверяем, если это третий блок
+                    if (entry.target.classList.contains('block3')) {
+                        phoneModal.style.display = 'block';
+                    }
+                }
+            });
+        }, {
+            threshold: 0.5 // Срабатывает, когда 50% блока видимо
+        });
+
+        // Наблюдаем за третьим блоком
+        observer.observe(document.querySelector('.block3'));
+
+        // Закрытие модального окна
+        closeModal.addEventListener('click', () => {
+            phoneModal.style.display = 'none';
+        });
+    </script>
+
+</body>
+
+</html>
